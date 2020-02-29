@@ -1,0 +1,9 @@
+**/*.class
+**/*.jar
+**/*.bin
+**/build
+**/.gradle
+**/*.lock
+**/target
+**/bin
+**/*aws.txt

@@ -1,0 +1,6 @@
+rootProject.name = 'email'
+include 'lib'
+include 'service'
+include 'process-email-lambda'
+include 'sqs-listener'
+

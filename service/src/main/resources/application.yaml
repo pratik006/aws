@@ -1,0 +1,15 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_KEY}
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+      instance-profile: true
+    region:
+      auto: true
+      static: us-east-2
+    stack:
+      auto: false
+    end-point: https://sqs.us-east-2.amazonaws.com/375170284425/testqueue
+    email.bucketName: com.prapps.test.email-bucket
