@@ -20,8 +20,8 @@ public class SentMessageListener {
     public static final String QUEUE_URL = "https://sqs.us-east-2.amazonaws.com/375170284425/EmailCompleteQueue";
 
     public static void main(String[] args) {
-        String accessKey = System.getenv("AWS_ACCESS_KEY");
-        String secretKey = System.getenv("AWS_SECRET_KEY");
+        String accessKey = System.getenv("AWS_ACCESS_KEY_ID");
+        String secretKey = System.getenv("AWS_SECRET_ACCESS_KEY");
         assert(accessKey != null && secretKey != null);
         final AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
         AmazonSQS amazonSQS = AmazonSQSClientBuilder.standard()

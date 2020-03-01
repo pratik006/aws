@@ -1,7 +1,5 @@
 package com.prapps.aws.email.process.lambda;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -19,7 +17,7 @@ import java.io.IOException;
 public class S3NotificationEvtRequestHandler implements RequestHandler<S3EventNotification, String> {
 
     private ObjectMapper objectMapper = new ObjectMapper();
-    EmailSender lambdaRequestHandler = new EmailSender();
+    private EmailSender lambdaRequestHandler = new EmailSender();
 
     public String handleRequest(S3EventNotification evt, Context context) {
         context.getLogger().log("Evt Notification Json: " + evt.toJson());
@@ -27,7 +25,6 @@ public class S3NotificationEvtRequestHandler implements RequestHandler<S3EventNo
         String fileKey = evt.getRecords().get(0).getS3().getObject().getKey();
         AmazonS3 s3 = AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.US_EAST_2)
-                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(System.getenv("aws.accessKey"), System.getenv("aws.secretKey"))))
                 .build();
         GetObjectRequest getObjectRequest = new GetObjectRequest(bucketName, fileKey);
         S3Object object = s3.getObject(getObjectRequest);
