@@ -1,10 +1,10 @@
 cloud:
   aws:
     credentials:
-      accessKey: AKIAVOWPEHOEYENWKL2N
-      secretKey: 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
-      access-key: AKIAVOWPEHOEYENWKL2N
-      secret-key: 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
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_KEY}
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
       instance-profile: true
     region:
       auto: true
