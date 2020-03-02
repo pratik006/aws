@@ -1,0 +1,14 @@
+{
+  "emailMessage": {
+    "subject": "Test Subject 9",
+    "textBody": "Test body 9",
+    "recipients": "pioneerstest101@gmail.com",
+    "from": "ixtester01@ixemailtester.onmicrosoft.com"
+  },
+  "emailAccount": {
+    "username": "ixtester01@ixemailtester.onmicrosoft.com",
+    "password": "Pega@123!",
+    "host": "smtp.office365.com",
+    "port": "587"
+  }
+}

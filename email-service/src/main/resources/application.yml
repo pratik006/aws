@@ -1,0 +1,9 @@
+micronaut:
+  function:
+    name: email-service
+cloud:
+  aws:
+    email.bucketName: com.prapps.test.email-bucket
+    region:
+      auto: true
+      static: us-east-2

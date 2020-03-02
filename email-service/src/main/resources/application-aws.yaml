@@ -1,0 +1,9 @@
+cloud:
+  aws:
+    region:
+      auto: true
+      static: us-east-2
+    stack:
+      auto: false
+    end-point: https://sqs.us-east-2.amazonaws.com/375170284425/testqueue
+    email.bucketName: com.prapps.test.email-bucket
