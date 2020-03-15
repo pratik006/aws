@@ -10,14 +10,15 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prapps.aws.email.MessageRequest;
+import com.prapps.aws.email.MimeMessageRequest;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 
 public class S3NotificationEvtRequestHandler implements RequestHandler<S3EventNotification, String> {
 
     private ObjectMapper objectMapper = new ObjectMapper();
-    private EmailSender lambdaRequestHandler = new EmailSender();
+    private MimeEmailSender lambdaRequestHandler = new MimeEmailSender();
 
     public String handleRequest(S3EventNotification evt, Context context) {
         context.getLogger().log("Evt Notification Json: " + evt.toJson());
@@ -30,15 +31,16 @@ public class S3NotificationEvtRequestHandler implements RequestHandler<S3EventNo
         S3Object object = s3.getObject(getObjectRequest);
         S3ObjectInputStream is = object.getObjectContent();
 
-        MessageRequest messageRequest;
+        MimeMessageRequest messageRequest;
         try {
             context.getLogger().log("retrieved S3ObjectInputStream");
-            messageRequest = objectMapper.readValue(is, MessageRequest.class);
+            messageRequest = objectMapper.readValue(is, MimeMessageRequest.class);
             context.getLogger().log("cast to messageRequest");
-            return lambdaRequestHandler.handleRequest(messageRequest, context);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "failed";
+            lambdaRequestHandler.handleRequest(messageRequest, context);
+            return "success";
+        } catch (IOException | MessagingException e) {
+            context.getLogger().log(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

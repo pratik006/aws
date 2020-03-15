@@ -2,10 +2,15 @@ package com.prapps.aws.email;
 
 import java.util.Objects;
 
-public class MessageRequest {
+public abstract class MessageRequest {
     private EmailMessage emailMessage;
     private EmailAccount emailAccount;
     private String timestamp;
+    private MessageType messageType;
+
+    public MessageRequest(MessageType messageType) {
+        this.messageType = messageType;
+    }
 
     public EmailAccount getEmailAccount() {
         return emailAccount;
@@ -30,6 +35,8 @@ public class MessageRequest {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+
 
     @Override
     public String toString() {

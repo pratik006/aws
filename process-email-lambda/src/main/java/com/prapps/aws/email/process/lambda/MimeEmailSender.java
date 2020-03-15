@@ -3,18 +3,19 @@ package com.prapps.aws.email.process.lambda;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.prapps.aws.email.EmailAccount;
 import com.prapps.aws.email.EmailMessage;
-import com.prapps.aws.email.MessageRequest;
+import com.prapps.aws.email.MimeMessageRequest;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.Properties;
 
-public class EmailSender {
+public class MimeEmailSender {
 
-    public String handleRequest(MessageRequest messageRequest, Context context) {
+    public void handleRequest(MimeMessageRequest messageRequest, Context context) throws MessagingException {
         context.getLogger().log("messageRequest: " + messageRequest);
 
         Properties properties = new Properties();
@@ -34,15 +35,11 @@ public class EmailSender {
             }
         };
         Session session = Session.getInstance(properties, auth);
-        try {
-            MimeMessage message = compose(session, messageRequest.getEmailMessage());
-            Transport.send(message);
-            context.getLogger().log("Mail sent successfully");
-            return "Message sent successfully - " + messageRequest;
-        } catch (MessagingException | UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "Message sending failed" + messageRequest;
-        }
+
+        //MimeMessage message = compose(session, messageRequest.getEmailMessage());
+        MimeMessage message = new MimeMessage(session, new ByteArrayInputStream(messageRequest.getMessageContent()));
+        Transport.send(message);
+        context.getLogger().log("Mail sent successfully");
     }
 
     public MimeMessage compose(Session session, EmailMessage emailMessage) throws UnsupportedEncodingException, MessagingException {

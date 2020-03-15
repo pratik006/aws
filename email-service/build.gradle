@@ -53,6 +53,7 @@ dependencies {
     implementation("io.micronaut:micronaut-function-web")
     compile project(":lib")
     implementation("io.micronaut:micronaut-function-aws")
+    compile 'com.sun.mail:javax.mail:1.5.5'
 }
 
 test.classpath += configurations.developmentOnly

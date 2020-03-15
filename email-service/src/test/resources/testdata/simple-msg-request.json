@@ -1,14 +1,1 @@
-{
-  "emailMessage": {
-    "subject": "Test Subject 9",
-    "textBody": "Test body 9",
-    "recipients": "pioneerstest101@gmail.com",
-    "from": "ixtester01@ixemailtester.onmicrosoft.com"
-  },
-  "emailAccount": {
-    "username": "ixtester01@ixemailtester.onmicrosoft.com",
-    "password": "Pega@123!",
-    "host": "smtp.office365.com",
-    "port": "587"
-  }
-}
+{"emailMessage":null,"emailAccount":{"username":"ixtester01@ixemailtester.onmicrosoft.com","password":"Pega@123!","host":"smtp.office365.com","port":587},"timestamp":null,"messageContent":"RnJvbTogaXh0ZXN0ZXIwMUBpeGVtYWlsdGVzdGVyLm9ubWljcm9zb2Z0LmNvbQ0KVG86IHBpb25lZXJzdGVzdDEwMUBnbWFpbC5jb20NCk1lc3NhZ2UtSUQ6IDwxNjU1MTk3MTcxLjAuMTU4NDI4ODg4MDM5NUBwcmF0aWstcGM+DQpTdWJqZWN0OiBUZXN0IFN1YmplY3QgNyBiYzJjNGZjYy0zMGI2LTQzMDYtOTY3Zi05YTU2ZjM2MTQ2YmUNCk1JTUUtVmVyc2lvbjogMS4wDQpDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9dXMtYXNjaWkNCkNvbnRlbnQtVHJhbnNmZXItRW5jb2Rpbmc6IDdiaXQNCg0KSGVsbG8gV29ybGQ="}
