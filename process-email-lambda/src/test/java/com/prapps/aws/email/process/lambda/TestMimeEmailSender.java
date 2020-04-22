@@ -70,9 +70,9 @@ public class TestMimeEmailSender {
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(mapper.writeValueAsString(messageRequest));
 
-        /*sender.handleRequest(messageRequest, ctx);
+        sender.handleRequest(messageRequest, ctx);
 
-        LOG.info("start verification process");
+        /*LOG.info("start verification process");
         Duration maxWait = Duration.ofMinutes(1);
         //verify in the receiver account
         Session session2 = getSession(pioneerstest101);

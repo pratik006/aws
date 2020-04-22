@@ -6,7 +6,7 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 
 public enum EmailAccountSample {
-    ixtester01("ixtester01@ixemailtester.onmicrosoft.com", "Pega@123!", EXCHANGE_SMTP, null),
+    ixtester01("ixtester01@ixemailtester.onmicrosoft.com", "Pega@1234!", EXCHANGE_SMTP, null),
     pioneerstest101("pioneerstest101@gmail.com", "chinat0wn", GMAIL_SMTP, GMAIL_IMAP),
     pioneerstest102("pioneerstest102@gmail.com", "chinat0wn", GMAIL_SMTP,GMAIL_IMAP);
 

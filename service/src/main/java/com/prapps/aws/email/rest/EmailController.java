@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prapps.aws.email.MessageRequest;
+import com.prapps.aws.email.MimeMessageRequest;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +31,7 @@ public class EmailController {
     private String bucketName;
 
     @PostMapping("/send")
-    public void sendEmail(@RequestBody MessageRequest messageRequest) throws IOException {
+    public void sendEmail(@RequestBody MimeMessageRequest messageRequest) throws IOException {
         //queueMessagingTemplate.convertAndSend(sqsEndpoint, messageRequest);
         messageRequest.setTimestamp(LocalDateTime.now().toString());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

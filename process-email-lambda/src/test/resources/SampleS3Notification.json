@@ -1,0 +1,40 @@
+{
+  "Records": [
+    {
+      "awsRegion": "us-east-2",
+      "eventName": "ObjectCreated:Put",
+      "eventSource": "aws:s3",
+      "eventTime": "2020-04-22T20:17:34.870Z",
+      "eventVersion": "2.1",
+      "requestParameters": {
+        "sourceIPAddress": "183.83.142.195"
+      },
+      "responseElements": {
+        "x-amz-id-2": "5VH1lvdr/Dsz+dixxGudaV3OmpWmvi70k4TLKFbGFx1AlOu5cuCXB2F+zkPu4gDOn1bI1jAcQPt7tArEQrCG3J1iRaRg/I2U",
+        "x-amz-request-id": "2CA190E1534B1AF6"
+      },
+      "s3": {
+        "configurationId": "da406b2a-79e3-4b8b-a435-d255325a524c",
+        "bucket": {
+          "name": "com.prapps.test.email-bucket",
+          "ownerIdentity": {
+            "principalId": "A1UFW6JRK4KKU3"
+          },
+          "arn": "arn:aws:s3:::com.prapps.test.email-bucket"
+        },
+        "object": {
+          "key": "1491323797",
+          "size": 506,
+          "eTag": "7258dd8fc4e2e8ecd851fe0f6420a959",
+          "versionId": "",
+          "sequencer": "005EA0A66331801EDA",
+          "urlDecodedKey": "1491323797"
+        },
+        "s3SchemaVersion": "1.0"
+      },
+      "userIdentity": {
+        "principalId": "AWS:AIDAVOWPEHOEVGBZBSDIC"
+      }
+    }
+  ]
+}

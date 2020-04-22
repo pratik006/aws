@@ -8,6 +8,8 @@ public abstract class MessageRequest {
     private String timestamp;
     private MessageType messageType;
 
+    public MessageRequest(){}
+
     public MessageRequest(MessageType messageType) {
         this.messageType = messageType;
     }

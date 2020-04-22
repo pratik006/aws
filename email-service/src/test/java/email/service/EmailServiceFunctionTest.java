@@ -37,6 +37,6 @@ public class EmailServiceFunctionTest {
         ObjectMapper mapper = new ObjectMapper();
         MessageRequest request = mapper.readValue(
                 new FileInputStream("src/test/resources/testdata/simple-msg-request.json"), MimeMessageRequest.class);
-        assertEquals("Success", client.apply(request).blockingGet());
+        assertEquals("success", client.apply(request).blockingGet());
     }
 }

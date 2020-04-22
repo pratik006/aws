@@ -1,10 +1,7 @@
 package email.service;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prapps.aws.email.MessageRequest;
+import com.prapps.aws.email.EmailMessage;
 import com.prapps.aws.email.MimeMessageRequest;
 import io.micronaut.context.annotation.Value;
 import io.micronaut.function.FunctionBean;
@@ -12,9 +9,14 @@ import io.micronaut.function.executor.FunctionInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayInputStream;
+import javax.inject.Inject;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.function.Function;
 
 @FunctionBean("email-service")
@@ -25,29 +27,37 @@ public class EmailServiceFunction extends FunctionInitializer implements Functio
     @Value("${cloud.aws.region.static}")
     private String region;
 
+    @Inject
+    S3MessageSender s3MessageSender;
+    @Inject
+    ObjectMapper objectMapper;
+
     @Override
-    public String apply(MimeMessageRequest msg) {
-        ObjectMapper mapper = new ObjectMapper();
+    public String apply(MimeMessageRequest messageRequest) {
         try {
+            EmailMessage emailMessage = messageRequest.getEmailMessage();
+            MimeMessage message = new MimeMessage(Session.getInstance(new Properties()));
+            message.setRecipients(Message.RecipientType.TO, messageRequest.getEmailMessage().getRecipients());
+            message.setText(emailMessage.getTextBody());
+            message.setSubject(emailMessage.getSubject());
+            message.setFrom(messageRequest.getEmailAccount().getUsername());
+
+            MimeMessageRequest newReq = new MimeMessageRequest();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            mapper.writeValue(baos, msg);
-            ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentType("application/json");
-            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-            AmazonS3 s3 = AmazonS3ClientBuilder.standard()
-                    .withRegion(region)
-                    .build();
-            LOG.debug("acquired s3 connection with  region % and bucket %s", region, bucketName);
-            s3.putObject(bucketName,
-                    String.valueOf(msg.hashCode()),
-                    bais,
-                    objectMetadata);
-        } catch (IOException e) {
-            LOG.error("exception while putting object in bucket %s", bucketName,e);
-            return "Failed "+ e.getMessage();
+            message.writeTo(baos);
+            newReq.setMessageContent(baos.toByteArray());
+            baos.close();
+            newReq.setEmailAccount(messageRequest.getEmailAccount());
+            baos = new ByteArrayOutputStream();
+            objectMapper.writeValue(baos, newReq);
+            s3MessageSender.addFile(String.valueOf(messageRequest.hashCode()), "application/json", baos.toByteArray());
+            baos.close();
+        } catch (IOException | MessagingException e) {
+            e.printStackTrace();
+            return "failure";
         }
 
-         return "Success";
+        return "success";
     }
 
     /**

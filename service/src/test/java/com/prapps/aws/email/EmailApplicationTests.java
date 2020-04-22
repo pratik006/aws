@@ -27,7 +27,7 @@ public class EmailApplicationTests {
 	@Test
 	public void testSendEmail() throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
-		MessageRequest messageRequest = new MessageRequest();
+		MessageRequest messageRequest = new MimeMessageRequest();
 		EmailAccount emailAccount = new EmailAccount();
 		emailAccount.setHost("smtp.gmail.com");
 		emailAccount.setPassword("chinat0wn");
